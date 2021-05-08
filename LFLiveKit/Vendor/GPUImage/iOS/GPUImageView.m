@@ -126,9 +126,7 @@
         
         [self setBackgroundColorRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         _fillMode = kGPUImageFillModePreserveAspectRatio;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createDisplayFramebuffer];
-        });
+        [self createDisplayFramebuffer];
     });
 }
 
@@ -139,10 +137,8 @@
     if (!CGSizeEqualToSize(self.bounds.size, boundsSizeAtFrameBufferEpoch) &&
         !CGSizeEqualToSize(self.bounds.size, CGSizeZero)) {
         runSynchronouslyOnVideoProcessingQueue(^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self destroyDisplayFramebuffer];
-                [self createDisplayFramebuffer];
-            });
+            [self destroyDisplayFramebuffer];
+            [self createDisplayFramebuffer];
         });
     } else if (!CGSizeEqualToSize(self.bounds.size, CGSizeZero)) {
         [self recalculateViewGeometry];
@@ -217,9 +213,7 @@
 {
     if (!displayFramebuffer)
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createDisplayFramebuffer];
-        });
+        [self createDisplayFramebuffer];
     }
     
     glBindFramebuffer(GL_FRAMEBUFFER, displayFramebuffer);
